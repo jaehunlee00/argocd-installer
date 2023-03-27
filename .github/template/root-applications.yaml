@@ -33,6 +33,8 @@ spec:
         - name: modules.certManager.autoSync
           value: "false"
 
+        - name: modules.istio.enabled
+          value: "true"
         - name: modules.strimziKafka.enabled
           value: "true"
         - name: modules.serviceBinding.enabled
@@ -50,7 +52,7 @@ spec:
         - name: modules.grafanaOperator.enabled
           value: "true"
         - name: modules.serviceMesh.istio.enabled
-          value: "true"
+          value: "false"
         - name: modules.serviceMesh.jaeger.enabled
           value: "true"
         - name: modules.serviceMesh.kiali.enabled
