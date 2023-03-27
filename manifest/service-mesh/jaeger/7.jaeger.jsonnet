@@ -215,7 +215,7 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
                 "--grpc-storage-plugin.configuration-file=/plugin/loki.yaml",
                 "--sampling.strategies-file=/etc/jaeger/sampling/sampling.json",
                 "--collector.zipkin.host-port=9411",
-                std.join("", ["--log-level=", jaeger_collector_log_level])
+                std.join("", ["--grpc-storage-plugin.log-level=", jaeger_collector_log_level])
               ],
               "ports": [
                 {
@@ -499,7 +499,7 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
                 "--grpc-storage-plugin.binary=/plugin/jaeger-objectstorage",
                 "--grpc-storage-plugin.configuration-file=/plugin/loki.yaml",
                 "--query.ui-config=/etc/config/ui.json",
-                std.join("", ["--log-level=", jaeger_query_log_level])
+                std.join("", ["--grpc-storage-plugin.log-level=", jaeger_query_log_level])
               ],
               "env": [
                 {
