@@ -5,4 +5,4 @@ metadata:
   labels:
     hypercloud: system
     istio-operator-managed: Reconcile
-    istio-injection: disabled
+    istio-injection: enabled
