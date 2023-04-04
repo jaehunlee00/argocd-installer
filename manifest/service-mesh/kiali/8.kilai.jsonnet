@@ -300,7 +300,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: login_token",
+        "  strategy: openid",
         "  login_token:",
         "    signing_key: 3fzZsAweZs87zxT53T69LpTt92aP7yHc",
         "  openid:",
