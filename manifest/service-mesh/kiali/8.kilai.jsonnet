@@ -498,10 +498,12 @@ local target_registry = if is_offline == "false" then "" else private_registry +
             {
               "configMap": {
                 "name": "kiali",
-                "items": {
-                  "key": "config.yaml",
-                  "path": "config.yaml"
-                }
+                "items": [
+                  {
+                    "key": "config.yaml",
+                    "path": "config.yaml"
+                  }
+                ]
               },
               "name": "kiali-configuration"
             },
