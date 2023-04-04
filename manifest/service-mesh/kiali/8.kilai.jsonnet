@@ -1,7 +1,7 @@
 function(
   is_offline="false",
   private_registry="registry.tmaxcloud.org",
-  KIALI_VERSION="v1.59.0",
+  KIALI_VERSION="v1.58",
   HYPERAUTH_DOMAIN="hyperauth.domain",
   CUSTOM_DOMAIN_NAME="custom-domain",
   CUSTOM_CLUSTER_ISSUER="tmaxcloud-issuer",
