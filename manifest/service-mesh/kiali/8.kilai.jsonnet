@@ -345,6 +345,9 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           "app": "kiali"
         }
       },
+      "login_token": {
+        "signing_key": ""
+      },
       "template": {
         "metadata": {
           "annotations": {
@@ -425,9 +428,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                 ]
               }
             }
-          },
-          "login_token": {
-            "signing_key": ""
           },
           "containers": [
             {
