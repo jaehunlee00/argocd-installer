@@ -314,7 +314,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  web_root: /api/kiali",
         "external_services:",
         "  istio:",
-        "    url_service_version: http://istio-pilot.istio-system:8080/version",
+        "    url_service_version: http://istiod.istio-system:8080/version",
         "  tracing:",
         "    url:",
         "    in_cluster_url: http://tracing/api/jaeger",
