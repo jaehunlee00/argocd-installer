@@ -1,7 +1,7 @@
 function(
   is_offline="false",
   private_registry="registry.tmaxcloud.org",
-  KIALI_VERSION="v1.22.0",
+  KIALI_VERSION="v1.59.0",
   HYPERAUTH_DOMAIN="hyperauth.domain",
   CUSTOM_DOMAIN_NAME="custom-domain",
   CUSTOM_CLUSTER_ISSUER="tmaxcloud-issuer",
@@ -323,7 +323,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    url:",
         "    in_cluster_url: http://grafana.monitoring:3000",
         "  prometheus:",
-        "    url: http://prometheus-k8s.monitoring:9090"
+        "    url: http://prometheus-k8s.monitoring:9090",
+        std.join("", ["    log-level: ", kiali_loglevel])
         ]
       )
     }
@@ -429,13 +430,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           },
           "containers": [
             {
-              "command": [
-                "/opt/kiali/kiali",
-                "-config",
-                "/kiali-configuration/config.yaml",
-                "-v",
-                std.join("", [kiali_loglevel])
-              ],
               "env": [
                 {
                   "name": "ACTIVE_NAMESPACE",
