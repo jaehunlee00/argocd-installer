@@ -302,7 +302,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "auth:",
         "  strategy: login_token",
         "  login_token:",
-        "    signing_key: wl5oStULbP",
+        "    signing_key: 3fzZsAweZs87zxT53T69LpTt92aP7yHc",
         "  openid:",
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    client_secret: ", "01314ea9-5738-4ec1-84e3-81c03a96c908"]),
