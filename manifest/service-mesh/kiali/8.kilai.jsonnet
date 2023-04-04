@@ -428,13 +428,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           },
           "containers": [
             {
-              "command": [
-                "/opt/kiali/kiali",
-                "-config",
-                "/kiali-configuration/config.yaml",
-                "-v",
-                std.join("", [kiali_loglevel])
-              ],
               "env": [
                 {
                   "name": "ACTIVE_NAMESPACE",
