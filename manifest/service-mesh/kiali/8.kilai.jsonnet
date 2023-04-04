@@ -1,7 +1,7 @@
 function(
   is_offline="false",
   private_registry="registry.tmaxcloud.org",
-  KIALI_VERSION="v1.59.0",
+  KIALI_VERSION="v1.36.0",
   HYPERAUTH_DOMAIN="hyperauth.domain",
   CUSTOM_DOMAIN_NAME="custom-domain",
   CUSTOM_CLUSTER_ISSUER="tmaxcloud-issuer",
@@ -300,7 +300,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: none",
+        "  strategy: openid",
         "  openid:",
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    client_secret: ", "01314ea9-5738-4ec1-84e3-81c03a96c908"]),
