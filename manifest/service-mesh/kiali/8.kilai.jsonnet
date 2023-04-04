@@ -308,8 +308,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         std.join("", ["    authorization_endpoint: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax/protocol/openid-connect/auth"]),
         "deployment:",
         "  accessible_namespaces: ['**']",
-        "login_token:",
-        "  signing_key: YWRtaW4=",
         "server:",
         "  port: 20001",
         "  web_root: /api/kiali",
