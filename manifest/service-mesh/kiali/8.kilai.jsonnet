@@ -308,7 +308,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
-        "  signing_key: wl5oStULbP",
+        "  signing_key: ",
         "server:",
         "  port: 20001",
         "  web_root: /api/kiali",
