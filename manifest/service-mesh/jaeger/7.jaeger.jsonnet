@@ -190,6 +190,7 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
             "app.kubernetes.io/component": "collector"
           },
           "annotations": {
+            "sidecar.istio.io/inject": "false",
             "prometheus.io/scrape": "true",
             "prometheus.io/port": "14268"
           }
@@ -420,6 +421,7 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
       "template": {
         "metadata": {
           "annotations": {
+            "sidecar.istio.io/inject": "false",
             "prometheus.io/port": "16686",
             "prometheus.io/scrape": "true"
           },
@@ -729,6 +731,7 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
             "app.kubernetes.io/component": "agent"
           },
           "annotations": {
+            "sidecar.istio.io/inject": "false",
             "prometheus.io/scrape": "true",
             "prometheus.io/port": "5778"
           }
