@@ -387,6 +387,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    in_cluster_url: http://jaeger-query.istio-system:16685",
         "  grafana:",
         "    auth:",
+        "      type: basic",
         "      username: admin",
         "      password: admin",
         "      use_kiali_token: false",
