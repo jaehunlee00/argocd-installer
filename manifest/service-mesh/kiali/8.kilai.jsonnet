@@ -1,7 +1,7 @@
 function(
   is_offline="false",
   private_registry="registry.tmaxcloud.org",
-  KIALI_VERSION="v1.35.0",
+  KIALI_VERSION="v1.59.0",
   HYPERAUTH_DOMAIN="hyperauth.domain",
   CUSTOM_DOMAIN_NAME="custom-domain",
   CUSTOM_CLUSTER_ISSUER="tmaxcloud-issuer",
@@ -162,7 +162,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "resources": [
           "deployments",
           "replicasets",
-          "statefulsets"
+          "statefulsets",
+          "daemonsets"
         ],
         "verbs": [
           "get",
@@ -297,7 +298,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "istio_component_namespaces:",
         "  grafana: monitoring",
         "  tracing: istio-system",
-        "  pilot: istio-system",
+        "  istiod: istio-system",
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
