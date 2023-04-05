@@ -42,7 +42,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "verbs": [
           "get",
           "list",
-          "watch"
+          "watch",
+          "patch"
         ]
       },
       {
@@ -53,7 +54,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           "pods/portforward"
         ],
         "verbs": [
-          "create"
+          "create",
+          "post"
         ]
       },
       {
@@ -70,7 +72,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "verbs": [
           "get",
           "list",
-          "watch"
+          "watch",
+          "patch"
         ]
       },
       {
@@ -97,7 +100,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "verbs": [
           "get",
           "list",
-          "watch"
+          "watch",
+          "patch"
         ]
       },
       {
@@ -199,7 +203,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           "pods/portforward"
         ],
         "verbs": [
-          "create"
+          "create",
+          "post"
         ]
       },
       {
@@ -363,6 +368,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "server:",
         "  port: 20001",
         "  web_root: /api/kiali",
+        "  metrics_enabled: true",
+        "  metrics_port: 9090",
         "external_services:",
         "  istio:",
         "    url_service_version: http://istiod.istio-system:15014/version",
@@ -404,7 +411,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
             "prometheus.io/port": "9090",
             "prometheus.io/scrape": "true",
             "scheduler.alpha.kubernetes.io/critical-pod": "",
-            "sidecar.istio.io/inject": "true"
+            "sidecar.istio.io/inject": "false"
           },
           "labels": {
             "app": "kiali",
@@ -493,6 +500,16 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                       "fieldPath": "metadata.namespace"
                     }
                   }
+                }
+              ],
+              "ports": [
+                {
+                  "name": "api-port",
+                  "containerPort": 20001
+                },
+                {
+                  "name": "http-metrics",
+                  "containerPort": 9090
                 }
               ],
               "image": std.join("", [target_registry, "quay.io/kiali/kiali:", KIALI_VERSION]),
@@ -607,6 +624,11 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           "name": "http-kiali",
           "protocol": "TCP",
           "port": 20001
+        },
+        {
+          "name": "http-metrics",
+          "protocol": "TCP",
+          "port": 9090
         }
       ],
       "selector": {
