@@ -387,7 +387,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    in_cluster_url: http://jaeger-query.istio-system:16685",
         "  grafana:",
         "    url:",
-        "    in_cluster_url: http://grafana-service.monitoring:3000",
+        "    in_cluster_url: http://grafana.monitoring:3000",
         "  prometheus:",
         "    url: http://prometheus-k8s.monitoring:9090",
         std.join("", ["    log-level: ", kiali_loglevel])
