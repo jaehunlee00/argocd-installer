@@ -53,7 +53,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "resources": [
           "deployments",
           "replicasets",
-          "statefulsets"
+          "statefulsets",
+          "daemonsets"
         ],
         "verbs": [
           "get",
