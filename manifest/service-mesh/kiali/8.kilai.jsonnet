@@ -47,6 +47,17 @@ local target_registry = if is_offline == "false" then "" else private_registry +
       },
       {
         "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods/portforward"
+        ],
+        "verbs": [
+          "create"
+        ]
+      },
+      {
+        "apiGroups": [
           "extensions",
           "apps"
         ],
