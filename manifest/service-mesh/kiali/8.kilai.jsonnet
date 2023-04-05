@@ -532,7 +532,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                   "scheme": "HTTP"
                 },
                 "initialDelaySeconds": 5,
-                "periodSeconds": 30
+                "periodSeconds": 30,
+                "timeoutSeconds": 5
               },
               "name": "kiali",
               "readinessProbe": {
@@ -542,7 +543,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                   "scheme": "HTTP"
                 },
                 "initialDelaySeconds": 5,
-                "periodSeconds": 30
+                "periodSeconds": 30,
+                "timeoutSeconds": 5
               },
               "resources": {
                 "requests": {
