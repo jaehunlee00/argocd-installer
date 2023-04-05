@@ -384,7 +384,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    url_service_version: http://istiod.istio-system:15014/version",
         "  tracing:",
         "    url:",
-        "    in_cluster_url: http://tracing/api/jaeger",
+        "    in_cluster_url: http://jaeger-query.istio-system:16685",
         "  grafana:",
         "    url:",
         "    in_cluster_url: http://grafana-service.monitoring:3000",
