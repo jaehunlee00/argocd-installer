@@ -393,7 +393,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
             "prometheus.io/port": "9090",
             "prometheus.io/scrape": "true",
             "scheduler.alpha.kubernetes.io/critical-pod": "",
-            "sidecar.istio.io/inject": "false"
+            "sidecar.istio.io/inject": "true"
           },
           "labels": {
             "app": "kiali",
