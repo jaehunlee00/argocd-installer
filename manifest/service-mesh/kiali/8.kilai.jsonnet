@@ -527,22 +527,22 @@ local target_registry = if is_offline == "false" then "" else private_registry +
               "imagePullPolicy": "IfNotPresent",
               "livenessProbe": {
                 "httpGet": {
-                  "path": "/healthz",
+                  "path": "/api/kiali/healthz",
                   "port": 20001,
                   "scheme": "HTTP"
                 },
-                "initialDelaySeconds": 5,
+                "initialDelaySeconds": 10,
                 "periodSeconds": 30,
                 "timeoutSeconds": 5
               },
               "name": "kiali",
               "readinessProbe": {
                 "httpGet": {
-                  "path": "/healthz",
+                  "path": "/api/kiali/healthz",
                   "port": 20001,
                   "scheme": "HTTP"
                 },
-                "initialDelaySeconds": 5,
+                "initialDelaySeconds": 10,
                 "periodSeconds": 30,
                 "timeoutSeconds": 5
               },
