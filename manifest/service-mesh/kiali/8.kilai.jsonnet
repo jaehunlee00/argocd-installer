@@ -527,7 +527,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
               "imagePullPolicy": "IfNotPresent",
               "livenessProbe": {
                 "httpGet": {
-                  "path": "/api/kiali/healthz",
+                  "path": "/healthz",
                   "port": 20001,
                   "scheme": "HTTP"
                 },
@@ -538,7 +538,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
               "name": "kiali",
               "readinessProbe": {
                 "httpGet": {
-                  "path": "/api/kiali/healthz",
+                  "path": "/healthz",
                   "port": 20001,
                   "scheme": "HTTP"
                 },
