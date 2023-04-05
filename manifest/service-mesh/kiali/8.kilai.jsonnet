@@ -302,7 +302,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: ",
+        "  strategy: anonymous",
         "  openid:",
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    client_secret: ", "01314ea9-5738-4ec1-84e3-81c03a96c908"]),
