@@ -120,6 +120,32 @@ local target_registry = if is_offline == "false" then "" else private_registry +
           "get",
           "list"
         ]
+      },
+      {
+        "apiGroups": [
+          "telemetry.istio.io"
+        ],
+        "resources": [
+          "telemetries"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "extensions.istio.io"
+        ],
+        "resources": [
+          "wasmplugins"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
       }
     ]
   },
@@ -302,7 +328,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: anonymous",
+        "  strategy: openid",
         "  openid:",
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    client_secret: ", "01314ea9-5738-4ec1-84e3-81c03a96c908"]),
