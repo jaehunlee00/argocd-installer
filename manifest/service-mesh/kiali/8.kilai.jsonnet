@@ -331,7 +331,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     "type": "Opaque",
     "data": {
       "username": "YWRtaW4=",
-      "passphrase": "YWRtaW4="
+      "passphrase": "YWRtaW4=",
+      "oidc-secret": "01314ea9-5738-4ec1-84e3-81c03a96c908"
     }
   },
   {
@@ -355,12 +356,15 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: anonymous",
+        "  strategy: openid",
         "  openid:",
+        "    insecure_skip_verify_tls: true",
+        "    disable_rbac: true",
+        "    scopes: openid",
         std.join("", ["    client_id: ", kiali_client_id]),
-        std.join("", ["    client_secret: ", "01314ea9-5738-4ec1-84e3-81c03a96c908"]),
         std.join("", ["    issuer_uri: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax"]),
         std.join("", ["    authorization_endpoint: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax/protocol/openid-connect/auth"]),
+        "    username_claim: user_name",
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
