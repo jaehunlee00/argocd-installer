@@ -340,6 +340,22 @@ local target_registry = if is_offline == "false" then "" else private_registry +
   },
   {
     "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": {
+      "name": "kiali-signing-key",
+      "namespace": "istio-system",
+      "labels": {
+        "app": "kiali",
+        "release": "istio"
+      }
+    },
+    "type": "Opaque",
+    "data": {
+      "key": "PwZ+YfZQjKbX9X72JPP92Fm+YYyjE0mTgDw="
+    }
+  },
+  {
+    "apiVersion": "v1",
     "kind": "ConfigMap",
     "metadata": {
       "name": "kiali",
@@ -521,6 +537,15 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                   "valueFrom": {
                     "fieldRef": {
                       "fieldPath": "metadata.namespace"
+                    }
+                  }
+                },
+                {
+                  "name": "SIGNING_KEY",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "name": "kiali-signing-key",
+                      "key": "key"
                     }
                   }
                 }
