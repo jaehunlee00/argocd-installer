@@ -332,7 +332,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     "data": {
       "username": "YWRtaW4=",
       "passphrase": "YWRtaW4=",
-      "key": "PwZ+YfZQjKbX9X72JPP92Fm+YYyjE0mTgDw="
+      "key": "cKsRtLhsTtW1JvTg+q3xpQjAZyA46TDyMw+l/Jbq3JQ="
     },
     "stringData": {
       "oidc-secret": "01314ea9-5738-4ec1-84e3-81c03a96c908"
@@ -351,7 +351,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     },
     "type": "Opaque",
     "data": {
-      "key": "PwZ+YfZQjKbX9X72JPP92Fm+YYyjE0mTgDw="
+      "key": "cKsRtLhsTtW1JvTg+q3xpQjAZyA46TDyMw+l/Jbq3JQ="
     }
   },
   {
@@ -387,7 +387,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
-        "  signing_key: PwZ+YfZQjKbX9X72JPP92Fm+YYyjE0mTgDw=",
+        "  signing_key: cKsRtLhsTtW1JvTg+q3xpQjAZyA46TDyMw+l/Jbq3JQ=",
         "server:",
         "  port: 20001",
         "  web_root: /api/kiali",
