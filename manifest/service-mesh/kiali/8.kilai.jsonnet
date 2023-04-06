@@ -332,26 +332,9 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     "data": {
       "username": "YWRtaW4=",
       "passphrase": "YWRtaW4=",
-      "key": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d"
     },
     "stringData": {
       "oidc-secret": "01314ea9-5738-4ec1-84e3-81c03a96c908"
-    }
-  },
-  {
-    "apiVersion": "v1",
-    "kind": "Secret",
-    "metadata": {
-      "name": "kiali-signing-key",
-      "namespace": "istio-system",
-      "labels": {
-        "app": "kiali",
-        "release": "istio"
-      }
-    },
-    "type": "Opaque",
-    "data": {
-      "key": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d"
     }
   },
   {
@@ -383,7 +366,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    issuer_uri: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax"]),
         std.join("", ["    authorization_endpoint: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax/protocol/openid-connect/auth"]),
-        "    username_claim: user_name",
+        "    username_claim: sub",
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
@@ -537,15 +520,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                   "valueFrom": {
                     "fieldRef": {
                       "fieldPath": "metadata.namespace"
-                    }
-                  }
-                },
-                {
-                  "name": "SIGNING_KEY",
-                  "valueFrom": {
-                    "secretKeyRef": {
-                      "name": "kiali-signing-key",
-                      "key": "key"
                     }
                   }
                 }
