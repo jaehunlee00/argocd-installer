@@ -375,7 +375,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: token",
+        "  strategy: openid",
         "  openid:",
         "    insecure_skip_verify_tls: true",
         "    disable_rbac: true",
