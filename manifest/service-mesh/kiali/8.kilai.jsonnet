@@ -362,6 +362,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  openid:",
         "    disable_rbac: true",
         "    scopes: ['openid', 'profile']",
+        "    insecure_skip_verify_tls: true",
         std.join("", ["    client_id: ", kiali_client_id]),
         std.join("", ["    issuer_uri: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax"]),
         std.join("", ["    authorization_endpoint: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax/protocol/openid-connect/auth"]),
