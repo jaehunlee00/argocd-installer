@@ -369,6 +369,8 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    api_token: access_token",
         "    additional_request_params:",
         "      resources: 01314ea9-5738-4ec1-84e3-81c03a96c908",
+        "    password: 01314ea9-5738-4ec1-84e3-81c03a96c908",
+        "    client_secret: 01314ea9-5738-4ec1-84e3-81c03a96c908",
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
