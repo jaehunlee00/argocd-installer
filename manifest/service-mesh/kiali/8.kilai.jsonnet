@@ -332,9 +332,6 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     "data": {
       "username": "YWRtaW4=",
       "passphrase": "YWRtaW4=",
-    },
-    "stringData": {
-      "oidc-secret": "01314ea9-5738-4ec1-84e3-81c03a96c908"
     }
   },
   {
@@ -358,7 +355,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "  prometheus: monitoring",
         "istio_namespace: istio-system",
         "auth:",
-        "  strategy: openid",
+        "  strategy: anonymous",
         "  openid:",
         "    scopes: ['openid', 'profile', 'preferred_username']",
         std.join("", ["    client_id: ", kiali_client_id]),
@@ -366,14 +363,10 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         std.join("", ["    authorization_endpoint: https://", HYPERAUTH_DOMAIN, "/auth/realms/tmax/protocol/openid-connect/auth"]),
         "    username_claim: preferred_username",
         "    api_token: access_token",
-        "    additional_request_params:",
-        "      resources: 01314ea9-5738-4ec1-84e3-81c03a96c908",
-        "    password: 01314ea9-5738-4ec1-84e3-81c03a96c908",
-        "    client_secret: 01314ea9-5738-4ec1-84e3-81c03a96c908",
         "deployment:",
         "  accessible_namespaces: ['**']",
         "login_token:",
-        "  signing_key: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+        "  signing_key: eP4K7bX9sT2mL1jN8QaWcVw6D5xYFhZ",
         "server:",
         "  port: 20001",
         "  web_root: /api/kiali",
