@@ -540,7 +540,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                 },
                 "initialDelaySeconds": 10,
                 "periodSeconds": 30,
-                "timeoutSeconds": 5
+                "timeoutSeconds": 10
               },
               "name": "kiali",
               "readinessProbe": {
@@ -551,7 +551,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
                 },
                 "initialDelaySeconds": 10,
                 "periodSeconds": 30,
-                "timeoutSeconds": 5
+                "timeoutSeconds": 10
               },
               "resources": {
                 "requests": {
