@@ -559,11 +559,11 @@ local target_registry = if is_offline == "false" then "" else private_registry +
               "resources": {
                 "requests": {
                   "cpu": "10m",
-                  "memory": "50Mi"
+                  "memory": "64Mi"
                 },
                 "limits": {
                   "cpu": "50m",
-                  "memory": "100Mi"
+                  "memory": "512Mi"
                 }
               },
               "volumeMounts": [
