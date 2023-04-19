@@ -367,7 +367,7 @@ local target_registry = if is_offline == "false" then "" else private_registry +
         "    username_claim: preferred_username",
         "    api_token: access_token",
         "deployment:",
-        "  accessible_namespaces: ['istio-system', 'monitoring', 'bookinfo']",
+        "  accessible_namespaces: ['**']",
         "login_token:",
         "  signing_key: eP4K7bX9sT2mL1jN8QaWcVw6D5xYFhZ",
         "server:",
