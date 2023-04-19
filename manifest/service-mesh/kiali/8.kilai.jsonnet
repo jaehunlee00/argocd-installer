@@ -332,6 +332,9 @@ local target_registry = if is_offline == "false" then "" else private_registry +
     "data": {
       "username": "YWRtaW4=",
       "passphrase": "YWRtaW4=",
+    },
+    "stringData": {
+      "oidc-secret": "01314ea9-5738-4ec1-84e3-81c03a96c908"
     }
   },
   {
