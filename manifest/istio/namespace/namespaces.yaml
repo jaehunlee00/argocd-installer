@@ -4,5 +4,3 @@ metadata:
   name: istio-system
   labels:
     hypercloud: system
-    istio-operator-managed: Reconcile
-    istio-injection: enabled
