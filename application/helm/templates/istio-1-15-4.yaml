@@ -6,86 +6,58 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: example-applicationset
+  name: istio
 spec:
   generators:
     - list:
         elements:
-          - metadata:
-              labels:
-                cluster: {{ ternary "master" $prefix $isMaster }}
-              name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
-              namespace: argocd
-              annotations:
-                argocd.argoproj.io/sync-wave: "-3"
-              finalizers:
-                - resources-finalizer.argocd.argoproj.io
-            spec:
-              destination:
-                name: {{ .Values.global.clusterName }}
-              project: {{ .Values.spec.project }}
-              source:
-                path: manifest/istio/namespace
-                repoURL: {{ .Values.spec.source.repoURL }}
-                targetRevision: {{ .Values.spec.source.targetRevision }}
-              syncPolicy:
-                {{- if .Values.modules.istio.autoSync }}
-                automated:
-                  selfHeal: true
-                  prune: true
-                {{- end }}
-                syncOptions:
-                  - ApplyOutOfSyncOnly=true
-          - metadata:
-              labels:
-                cluster: {{ ternary "master" $prefix $isMaster }}
-              name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}-base
-              namespace: argocd
-              annotations:
-                argocd.argoproj.io/sync-wave: "-2"
-            spec:
-              destination:
-                name: {{ .Values.global.clusterName }}
-                namespace: istio-system
-              project: {{ .Values.spec.project }}
-              source:
-                path: manifest/istio/istio-base
-                repoURL: {{ .Values.spec.source.repoURL }}
-                targetRevision: {{ .Values.spec.source.targetRevision }}
-                helm:
-                  releaseName: {{ $module }}-base
-              syncPolicy:
-                {{- if .Values.modules.istio.autoSync }}
-                automated:
-                  selfHeal: false
-                  prune: true
-                {{- end }}
-                syncOptions:
-                  - ApplyOutOfSyncOnly=true
+          - cluster: {{ ternary "master" $prefix $isMaster }}
+            name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
+            namespace: argocd
+            syncWave: "-3"
+            finalizer: resources-finalizer.argocd.argoproj.io
+            destinationName: {{ .Values.global.clusterName }}
+            project: {{ .Values.spec.project }}
+            sourcePath: manifest/istio/namespace
+            repoURL: {{ .Values.spec.source.repoURL }}
+            targetRevision: {{ .Values.spec.source.targetRevision }}
+            autoSync: {{ .Values.modules.istio.autoSync }}
+          - cluster: {{ ternary "master" $prefix $isMaster }}
+            name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}-base
+            namespace: argocd
+            syncWave: "-2"
+            destinationName: {{ .Values.global.clusterName }}
+            destinationNamespace: istio-system
+            project: {{ .Values.spec.project }}
+            sourcePath: manifest/istio/istio-base
+            repoURL: {{ .Values.spec.source.repoURL }}
+            targetRevision: {{ .Values.spec.source.targetRevision }}
+            releaseName: {{ $module }}-base
+            autoSync: {{ .Values.modules.istio.autoSync }}
   template:
     metadata:
       labels:
-        cluster: '{{ metadata.labels.cluster }}'
-      name: '{{ metadata.name }}'
-      namespace: '{{ metadata.namespace }}'
+        cluster: '{{ cluster }}'
+      name: '{{ name }}'
+      namespace: '{{ namespace }}'
       annotations:
-        argocd.argoproj.io/sync-wave: '{{ metadata.annotations.argocd.argoproj.io/sync-wave }}'
+        argocd.argoproj.io/sync-wave: '{{ syncWave }}'
       finalizers:
-        - '{{ metadata.finalizers[0] }}'
+        - '{{ finalizer }}'
     spec:
       destination:
-        name: '{{ spec.destination.name }}'
-        namespace: '{{ spec.destination.namespace }}'
-      project: '{{ spec.project }}'
+        name: '{{ destinationName }}'
+        namespace: '{{ destinationNamespace }}'
+      project: '{{ project }}'
       source:
-        path: '{{ spec.source.path }}'
-        repoURL: '{{ spec.source.repoURL }}'
-        targetRevision: '{{ spec.source.targetRevision }}'
+        path: '{{ sourcePath }}'
+        repoURL: '{{ repoURL }}'
+        targetRevision: '{{ targetRevision }}'
         helm:
-          releaseName: '{{ spec.source.helm.releaseName }}'
+          releaseName: '{{ releaseName }}'
       syncPolicy:
         automated:
-          selfHeal: '{{ spec.syncPolicy.automated.selfHeal }}'
-          prune: '{{ spec.syncPolicy.automated.prune }}'
+          selfHeal: true
+          prune: true
         syncOptions:
           - ApplyOutOfSyncOnly=true
