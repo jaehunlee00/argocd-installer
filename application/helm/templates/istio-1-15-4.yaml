@@ -6,67 +6,86 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: istio-app-set
-  namespace: argocd
+  name: example-applicationset
 spec:
-  generator:
-    template:
-      metadata:
-        name: istio-app
-      spec:
-        destination:
-          name: {{ .Values.global.clusterName }}
-        project: {{ .Values.spec.project }}
-        syncPolicy:
-          automated:
-            selfHeal: true
-            prune: true
-          syncOptions:
-            - ApplyOutOfSyncOnly=true
-        source:
-          repoURL: {{ .Values.spec.source.repoURL }}
-          targetRevision: {{ .Values.spec.source.targetRevision }}
+  generators:
+    - list:
+        elements:
+          - metadata:
+              labels:
+                cluster: {{ ternary "master" $prefix $isMaster }}
+              name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
+              namespace: argocd
+              annotations:
+                argocd.argoproj.io/sync-wave: "-3"
+              finalizers:
+                - resources-finalizer.argocd.argoproj.io
+            spec:
+              destination:
+                name: {{ .Values.global.clusterName }}
+              project: {{ .Values.spec.project }}
+              source:
+                path: manifest/istio/namespace
+                repoURL: {{ .Values.spec.source.repoURL }}
+                targetRevision: {{ .Values.spec.source.targetRevision }}
+              syncPolicy:
+                {{- if .Values.modules.istio.autoSync }}
+                automated:
+                  selfHeal: true
+                  prune: true
+                {{- end }}
+                syncOptions:
+                  - ApplyOutOfSyncOnly=true
+          - metadata:
+              labels:
+                cluster: {{ ternary "master" $prefix $isMaster }}
+              name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}-base
+              namespace: argocd
+              annotations:
+                argocd.argoproj.io/sync-wave: "-2"
+            spec:
+              destination:
+                name: {{ .Values.global.clusterName }}
+                namespace: istio-system
+              project: {{ .Values.spec.project }}
+              source:
+                path: manifest/istio/istio-base
+                repoURL: {{ .Values.spec.source.repoURL }}
+                targetRevision: {{ .Values.spec.source.targetRevision }}
+                helm:
+                  releaseName: {{ $module }}-base
+              syncPolicy:
+                {{- if .Values.modules.istio.autoSync }}
+                automated:
+                  selfHeal: false
+                  prune: true
+                {{- end }}
+                syncOptions:
+                  - ApplyOutOfSyncOnly=true
+  template:
+    metadata:
+      labels:
+        cluster: '{{ metadata.labels.cluster }}'
+      name: '{{ metadata.name }}'
+      namespace: '{{ metadata.namespace }}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ metadata.annotations.argocd.argoproj.io/sync-wave }}'
+      finalizers:
+        - '{{ metadata.finalizers[0] }}'
+    spec:
+      destination:
+        name: '{{ spec.destination.name }}'
+        namespace: '{{ spec.destination.namespace }}'
+      project: '{{ spec.project }}'
+      source:
+        path: '{{ spec.source.path }}'
+        repoURL: '{{ spec.source.repoURL }}'
+        targetRevision: '{{ spec.source.targetRevision }}'
         helm:
-          releaseName: {{ $module }}
-  applications:
-    - name: ns-istio-system
-      source:
-        path: manifest/istio/namespace
+          releaseName: '{{ spec.source.helm.releaseName }}'
       syncPolicy:
-        syncWave: -3
-    - name: istio-base
-      source:
-        path: manifest/istio/istio-base
-        namespace: istio-system
-      syncPolicy:
-        syncWave: -2
-        preSync:
-          hook:
-            group: argocd.argoproj.io
-            version: v1alpha1
-            kind: PreSyncHook
-            metadata:
-              name: istio-pre-sync
-            spec:
-              command: ['bash', '-c', 'echo "Running pre-sync hook for istio-base"']
-    - name: istio-istiod
-      source:
-        path: manifest/istio/istio-istiod
-        namespace: istio-system
-      syncPolicy:
-        syncWave: -1
-        preSync:
-          hook:
-            group: argocd.argoproj.io
-            version: v1alpha1
-            kind: PreSyncHook
-            metadata:
-              name: istio-istiod-pre-sync
-            spec:
-              command: ['bash', '-c', 'echo "Running pre-sync hook for istio-istiod"']
-    - name: istio-gateway
-      source:
-        path: manifest/istio/istio-gateway
-        namespace: istio-system
-      syncPolicy:
-        syncWave: 0
+        automated:
+          selfHeal: '{{ spec.syncPolicy.automated.selfHeal }}'
+          prune: '{{ spec.syncPolicy.automated.prune }}'
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
