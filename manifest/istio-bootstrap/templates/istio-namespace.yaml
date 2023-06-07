@@ -21,6 +21,9 @@ spec:
     path: manifest/istio/namespace
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      valuesFile:
+        - {{ .Values.global.helm.valueFiles }}
   syncPolicy:
     {{- if .Values.modules.istio_namespace.autoSync }}
     automated:
