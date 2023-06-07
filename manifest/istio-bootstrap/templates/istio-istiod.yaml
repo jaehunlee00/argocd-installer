@@ -22,7 +22,7 @@ spec:
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
       releaseName: {{ $module }}d
-      valuesFile:
+      valueFiles:
         - {{ .Values.global.helm.valueFiles }}
       parameters:
           - name: global.logging.level
