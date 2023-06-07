@@ -1,0 +1,31 @@
+spec:
+  source:
+    repoURL: https://github.com/tmax-cloud/argocd-installer
+    targetRevision: main
+  project: default
+
+global:
+  cluster: master
+  clusterName: in-cluster
+  clusterNamespace: default
+  privateRegistry: 172.22.6.2:5000
+  network:
+    disabled: false
+
+modules:
+  istio-namespace:
+    enabled: true
+    autoSync: false
+
+  istio-base:
+    enabled: true
+    autoSync: false
+
+  istio-istiod:
+    enabled: true
+    logLevel: info
+    autoSync: false
+
+  istio-gateway:
+    enabled: true
+    autoSync: false

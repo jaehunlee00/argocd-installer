@@ -2,66 +2,56 @@
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
 {{ $module := "istio" }}
-{{ $ns := "ns-istio-system" }}
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: example-applicationset
+  labels:
+    cluster: {{ ternary "master" $prefix $isMaster }}
+  name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}
+  namespace: argocd
 spec:
-  generators:
-    - clusterDecisionResource:
-        apiVersion: v1
-        kind: ConfigMap
-        name: cluster-decision-resource
-        namespace: argocd
-        fieldSelectors:
-          - fieldPath: data.prefix
-            value: $prefix
-          - fieldPath: data.isMaster
-            value: $isMaster
-    - list:
-        elements:
-          - name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
-            namespace: argocd
-            syncWave: "-3"
-            finalizer: resources-finalizer.argocd.argoproj.io
-            destinationName: {{ .Values.global.clusterName }}
-            project: {{ .Values.spec.project }}
-            sourcePath: manifest/istio/namespace
-            repoURL: {{ .Values.spec.source.repoURL }}
-            targetRevision: {{ .Values.spec.source.targetRevision }}
-            autoSync: {{ .Values.modules.istio.autoSync }}
-          - name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}-base
-            namespace: argocd
-            syncWave: "-2"
-            destinationName: {{ .Values.global.clusterName }}
-            destinationNamespace: istio-system
-            project: {{ .Values.spec.project }}
-            sourcePath: manifest/istio/istio-base
-            repoURL: {{ .Values.spec.source.repoURL }}
-            targetRevision: {{ .Values.spec.source.targetRevision }}
-            releaseName: {{ $module }}-base
-            autoSync: {{ .Values.modules.istio.autoSync }}
-  template:
-    metadata:
-      name: '{{ name }}'
-      namespace: '{{ namespace }}'
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{ syncWave }}'
-      finalizers:
-        - '{{ finalizer }}'
-    spec:
-      destination:
-        name: '{{ destinationName }}'
-        namespace: '{{ destinationNamespace }}'
-      project: '{{ project }}'
-      source:
-        path: '{{ sourcePath }}'
-        repoURL: '{{ repoURL }}'
-        targetRevision: '{{ targetRevision }}'
-        helm:
-          releaseName: '{{ releaseName }}'
-      syncPolicy:
-        automated:
-          selfHeal: true
-          prune: true
+  destination:
+    name: {{ .Values.global.clusterName }}
+    namespace: istio-system
+  project: {{ .Values.spec.project }}
+  source:
+    helm:
+      parameters:
+        - name: modules.istio-namespace.enabled
+          value: {{ .Values.modules.istio.enabled }}
+        - name: modules.istio-namespace.autoSync
+          value: {{ .Values.modules.istio.autoSync }}
+        - name: modules.istio-base.enabled
+          value: {{ .Values.modules.istio.enabled }}
+        - name: modules.istio-base.autoSync
+          value: {{ .Values.modules.istio.autoSync }}
+        - name: modules.istio-istiod.enabled
+          value: {{ .Values.modules.istio.enabled }}
+        - name: modules.istio-istiod.logLevel
+          value: {{ .Values.modules.istio.logLevel }}
+        - name: modules.istio-istiod.autoSync
+          value: {{ .Values.modules.istio.autoSync }}
+        - name: modules.istio-gateway.enabled
+          value: {{ .Values.modules.istio.enabled }}
+        - name: modules.istio-gateway.autoSync
+          value: {{ .Values.modules.istio.autoSync }}
+        - name: spec.source.repoURL
+          values: {{ .Values.spec.source.repoURL }}
+        - name: spec.source.targetRevision
+          values: {{ .Values.spec.source.targetRevision}}
+        - name: spec.project
+          values: {{ .Values.spec.project }}
+        - name: global.cluster
+          value: {{ .Values.global.cluster }}
+        - name: global.clusterName
+          value: {{ .Values.global.clusterName }}
+        - name: global.clusterNamespace
+          value: {{ .Values.global.clusterNamespace }}
+        - name: global.privateRegistry
+          value: {{ .Values.global.privateRegistry }}
+        - name: global.network.disabled
+          value: "{{ .Values.global.network.disabled }}"
+    path: manifest/istio-bootstrap
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+{{ end }}

@@ -1,0 +1,32 @@
+{{ if .Values.modules.istio-namespace.enabled }}
+{{ $isMaster := eq .Values.global.cluster "master" }}
+{{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
+{{ $ns := "ns-istio-system" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    cluster: {{ ternary "master" $prefix $isMaster }}
+  name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: {{ .Values.global.clusterName }}
+  project: {{ .Values.spec.project }}
+  source:
+    path: manifest/istio/namespace
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    {{- if .Values.modules.istio-namespace.autoSync }}
+    automated:
+      selfHeal: true
+      prune: true
+    {{- end }}
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+{{ end }}
