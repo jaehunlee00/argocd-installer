@@ -1,4 +1,4 @@
-{{ if .Values.modules.istio-istiod.enabled }}
+{{ if .Values.modules.istio_istiod.enabled }}
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
 {{ $module := "istio" }}
@@ -24,13 +24,13 @@ spec:
       releaseName: {{ $module }}d
       parameters:
           - name: global.logging.level
-            value: "default:{{ .Values.modules.istio-istiod.logLevel }}"
+            value: "default:{{ .Values.modules.istio_istiod.logLevel }}"
       {{- if .Values.global.network.disabled }}
       - name: global.hub
         value: {{ .Values.global.privateRegistry }}/docker.io/istio
       {{- end }}
   syncPolicy:
-    {{- if .Values.modules.istio-istiod.autoSync }}
+    {{- if .Values.modules.istio_istiod.autoSync }}
     automated:
       selfHeal: true
       prune: true

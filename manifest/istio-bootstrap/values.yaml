@@ -13,19 +13,19 @@ global:
     disabled: false
 
 modules:
-  istio-namespace:
+  istio_namespace:
     enabled: true
     autoSync: false
 
-  istio-base:
+  istio_base:
     enabled: true
     autoSync: false
 
-  istio-istiod:
+  istio_istiod:
     enabled: true
     logLevel: info
     autoSync: false
 
-  istio-gateway:
+  istio_gateway:
     enabled: true
     autoSync: false

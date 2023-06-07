@@ -1,4 +1,4 @@
-{{ if .Values.modules.istio-gateway.enabled }}
+{{ if .Values.modules.istio_gateway.enabled }}
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
 {{ $module := "istio" }}
@@ -28,7 +28,7 @@ spec:
         value: {{ .Values.global.privateRegistry }}
       {{- end }}
   syncPolicy:
-    {{- if .Values.modules.istio-gateway.autoSync }}
+    {{- if .Values.modules.istio_gateway.autoSync }}
     automated:
       selfHeal: true
       prune: true
