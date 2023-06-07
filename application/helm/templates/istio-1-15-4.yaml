@@ -18,23 +18,23 @@ spec:
     helm:
       parameters:
         - name: modules.istio-namespace.enabled
-          value: {{ .Values.modules.istio.enabled }}
+          value: "{{ .Values.modules.istio.enabled }}"
         - name: modules.istio-namespace.autoSync
-          value: {{ .Values.modules.istio.autoSync }}
+          value: "{{ .Values.modules.istio.autoSync }}"
         - name: modules.istio-base.enabled
-          value: {{ .Values.modules.istio.enabled }}
+          value: "{{ .Values.modules.istio.enabled }}"
         - name: modules.istio-base.autoSync
-          value: {{ .Values.modules.istio.autoSync }}
+          value: "{{ .Values.modules.istio.autoSync }}"
         - name: modules.istio-istiod.enabled
-          value: {{ .Values.modules.istio.enabled }}
+          value: "{{ .Values.modules.istio.enabled }}"
         - name: modules.istio-istiod.logLevel
           value: {{ .Values.modules.istio.logLevel }}
         - name: modules.istio-istiod.autoSync
-          value: {{ .Values.modules.istio.autoSync }}
+          value: "{{ .Values.modules.istio.autoSync }}"
         - name: modules.istio-gateway.enabled
-          value: {{ .Values.modules.istio.enabled }}
+          value: "{{ .Values.modules.istio.enabled }}"
         - name: modules.istio-gateway.autoSync
-          value: {{ .Values.modules.istio.autoSync }}
+          value: "{{ .Values.modules.istio.autoSync }}"
         - name: spec.source.repoURL
           values: {{ .Values.spec.source.repoURL }}
         - name: spec.source.targetRevision
