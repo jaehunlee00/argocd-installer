@@ -35,12 +35,6 @@ spec:
           value: "{{ .Values.modules.istio.enabled }}"
         - name: modules.istio_gateway.autoSync
           value: "{{ .Values.modules.istio.autoSync }}"
-        - name: spec.source.repoURL
-          values: {{ .Values.spec.source.repoURL }}
-        - name: spec.source.targetRevision
-          values: {{ .Values.spec.source.targetRevision}}
-        - name: spec.project
-          values: {{ .Values.spec.project }}
         - name: global.cluster
           value: {{ .Values.global.cluster }}
         - name: global.clusterName
