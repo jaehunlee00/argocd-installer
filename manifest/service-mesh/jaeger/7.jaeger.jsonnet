@@ -509,6 +509,10 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
                 {
                   "name": "BASE_QUERY_PATH",
                   "value": "/api/jaeger"
+                },
+                {
+                  "name": "JAEGER_PROPAGATION",
+                  "value": "jaeger, b3, w3c"
                 }
               ],
               "image": std.join("", [target_registry, "docker.io/jaegertracing/jaeger-query:", JAEGER_VERSION]),
