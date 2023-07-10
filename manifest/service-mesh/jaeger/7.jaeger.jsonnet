@@ -229,6 +229,14 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
                 {
                   "containerPort": 9411,
                   "protocol": "TCP"
+                },
+                {
+                  "containerPort": 4317,
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 4318,
+                  "protocol": "TCP"
                 }
               ],
               "readinessProbe": {
@@ -263,6 +271,10 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
                 {
                   "name": "SPAN_STORAGE_TYPE",
                   "value": "grpc-plugin"
+                },
+                {
+                  "name": "COLLECTOR_OTLP_ENABLED",
+                  "value": "true"
                 }
               ]
             }
@@ -357,6 +369,18 @@ local REDIRECT_URL = jaeger_subdomain + "." + CUSTOM_DOMAIN_NAME;
           "port": 9411,
           "protocol": "TCP",
           "targetPort": 9411
+        },
+        {
+          "name": "otlp-grpc",
+          "port": 4317,
+          "protocol": "TCP",
+          "targetPort": 4317
+        },
+        {
+          "name": "otlp-http",
+          "port": 4318,
+          "protocol": "TCP",
+          "targetPort": 4318
         }
       ],
       "selector": {
