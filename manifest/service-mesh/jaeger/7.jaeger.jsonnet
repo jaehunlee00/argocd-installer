@@ -1,7 +1,7 @@
 function(
   is_offline="false",
   private_registry="registry.tmaxcloud.org",
-  JAEGER_VERSION="1.35.2",
+  JAEGER_VERSION="1.46",
   cluster_name="master",
   tmax_client_secret="tmax_client_secret",
   HYPERAUTH_DOMAIN="hyperauth.domain",
