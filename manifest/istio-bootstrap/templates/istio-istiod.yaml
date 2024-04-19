@@ -26,7 +26,7 @@ spec:
         - name: global.logging.level
           value: "default:{{ .Values.modules.istio_istiod.logLevel }}"
         - name: global.podMonitorEnabled
-          value: {{ .Values.global.podMonitorEnabled }}
+          value: "{{ .Values.global.podMonitorEnabled }}"
         {{- if .Values.global.network.disabled }}
         - name: global.hub
           value: {{ .Values.global.privateRegistry }}/docker.io/istio
