@@ -25,7 +25,7 @@ spec:
       parameters:
         - name: global.logging.level
           value: "default:{{ .Values.modules.istio_istiod.logLevel }}"
-        - name: global.podMonitorEnabled
+        - name: podMonitorEnabled
           value: "{{ .Values.global.podMonitorEnabled }}"
         {{- if .Values.global.network.disabled }}
         - name: global.hub
