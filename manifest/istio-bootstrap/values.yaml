@@ -9,6 +9,7 @@ global:
   clusterName: in-cluster
   clusterNamespace: default
   privateRegistry: 172.22.6.2:5000
+  podMonitorEnabled: true
   network:
     disabled: false
   timeZone: UTC

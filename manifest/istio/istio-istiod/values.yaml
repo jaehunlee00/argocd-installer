@@ -211,6 +211,11 @@ meshConfig:
 global:
   # Used to locate istiod.
   timeZone: UTC
+
+  # enable pod monitor about envoy stats for prometheus
+  # should be enabled for topology view of kiali
+  podMonitorEnabled: true
+
   istioNamespace: istio-system
   # enable pod disruption budget for the control plane, which is used to
   # ensure Istio control plane components are gradually upgraded or recovered.
